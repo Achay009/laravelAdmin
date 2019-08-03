@@ -8,7 +8,7 @@
                         <table class="table table-striped table-sm">
                         <thead>
                             <tr>
-                            <th>Id</th>
+                            <th>Employee</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Email</th>
@@ -19,16 +19,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                           @if (count($employees)>0)
-                           
-                             @foreach ($employees as $employee)
+                           @if (count($data["employees"])>0)
+                            <div style = "display : none;"> {{$count = 1}}</div>
+                             @foreach ($data["employees"] as $employee)
                                 <tr>
-                                <td>{{$employee->id}}</td>
+                                <td>{{$count++}}</td>
                                 <td>{{$employee->First_Name}}</td>
                                 <td>{{$employee->Last_Name}}</td>
                                 <td>{{$employee->email}}</td>
                                 <td>{{$employee->Phone_Number}}</td>
-                                <td></td>
+                                <td>{{$employee->company_name}}</td>
                                 <td><a class="btn btn-primary" href="/Dashboard/employeeHome/{{$employee->id}}/Edit" role="button">Edit</a></td>
                                 <td><form action = "/Dashboard/employeeHome/{{$employee->id}}/Delete" method = "POST">@csrf <button type="submit" class="btn btn-primary btn-danger">Delete</button></form></td>
 
@@ -80,9 +80,14 @@
                     <label for="inputPhoneNumber">Phone Number</label>
                     <input type="text" class="form-control" id="inputPhone" name = "phone" placeholder="Enter Phone Number">
                 </div>
-                <div class="form-group">
-                    <label for="inputCompany">Company</label>
-                    <input type="text" class="form-control" id="inputCompany" name = "company" placeholder="Enter Company">
+               <div class="form-group">
+                         <label for="choosecompany">Choose Company</label>
+                        <select class="form-control" id="chooseCompany" name = "selectCompany">
+                        @foreach ($data["companies"] as $company)
+                        <option value = "{{$company->id}}" >{{$company->name}}</option>
+                        @endforeach
+                        
+                        </select>
                 </div>
                
             </div>

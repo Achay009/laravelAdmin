@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Company;
+use App\Employee;
 
 class CompanyController extends Controller
 {
@@ -107,7 +108,7 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        $company = Company::find($id);
+        $company = Company::findorfail($id);
         return view('editCompany')->with('company',$company);
     }
 
@@ -120,7 +121,7 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $company = Company::find($id);
+        $company = Company::findorfail($id);
 
         $this->validate($request,[
             'companyName' => 'required',
@@ -174,8 +175,23 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        $company = Company::find($id);
+        $company = Company::findorfail($id);
+        $employees = Employee::where('company_id',$id);
+        
         $company->delete();
+        foreach ($employees as $employee) {
+            $employee->delete();
+        }
+
+
         return redirect('/Dashboard/companyHome')->with('success','Company Deleted');
+    }
+    public function allEmployees($name,$id){
+
+        $employees = Employee::where('company_id',$id)->get();
+       // dd($employees);
+
+        return view('allEmployees')->with('employees',$employees);
+
     }
 }

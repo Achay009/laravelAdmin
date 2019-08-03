@@ -21,6 +21,7 @@ class CreateEmployeesTable extends Migration
             $table->string('email')->unique();
             $table->string('Phone_Number');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+           
             $table->timestamps();
         });
     }

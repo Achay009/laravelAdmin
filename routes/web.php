@@ -18,6 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home','HomeController@index');
+
+
+
 /**********************Employee Controller*************************************/
 Route::get('/Dashboard/employeeHome', 'EmployeeController@index');
 Route::post('/Dashboard/employeeHome/store', 'EmployeeController@store');
@@ -34,3 +37,4 @@ Route::post('/Dashboard/companyHome/store', 'CompanyController@store');
 Route::get('/Dashboard/companyHome/{id}/Edit', 'CompanyController@edit');
 Route::post('/Dashboard/companyHome/{id}/store', 'CompanyController@update');
 Route::post('/Dashboard/companyHome/{id}/Delete', 'CompanyController@destroy');
+Route::get('/Dashboard/{name}/{id}/employees','CompanyController@allEmployees');

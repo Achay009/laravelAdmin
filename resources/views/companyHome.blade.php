@@ -9,7 +9,7 @@
                         <table class="table table-striped table-sm">
                         <thead>
                             <tr>
-                            <th>Company Id</th>
+                            <th>Company </th>
                             <th>Company Name</th>
                             <th>Company Email</th>
                             <th>Company Website</th>
@@ -20,11 +20,12 @@
                         </thead>
                         <tbody>
                               @if (count($companies)>0)
-                           
+                               <div style = "display : none;"> {{$count = 1}}</div>
                              @foreach ($companies as $company)
+
                                 <tr>
-                                <td>{{$company->id}}</td>
-                                <td>{{$company->name}}</td>
+                                <td>{{$count++}}</td>
+                                <td><a href="/Dashboard/{{$company->name}}/{{$company->id}}/employees">{{$company->name}}</a></td>
                                 <td>{{$company->email}}</td>
                                 <td>{{$company->website}}</td>
                                 <td><img style = " width:15%; height15%; border-radius: 50%;"src = "/storage/companyLogo/{{$company->logo}}"/></td>
